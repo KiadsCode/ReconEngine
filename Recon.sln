@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recon", "Recon\Recon.csproj", "{35A1883F-51C9-4274-80B0-B97C9BD141EA}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Lime", "Lime\Lime.shproj", "{2E2F7017-989E-428C-896D-FD95DDF39C40}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Graphics", "Graphics\Graphics.shproj", "{960CA962-B9FB-4E50-8A9F-59437C296DE5}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Window", "Window\Window.shproj", "{BC11FAF0-8A9D-461E-951B-FE5DC5D281E9}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Physics", "Physics\Physics.shproj", "{FEECB956-513F-4523-AB17-787222A3BCF8}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Audio", "Audio\Audio.shproj", "{EFEEB77D-93EA-401D-9075-61FC1CF0EE34}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Util", "Util\Util.shproj", "{A97CC440-50B3-40BE-9CCF-774AEE5068A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35A1883F-51C9-4274-80B0-B97C9BD141EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35A1883F-51C9-4274-80B0-B97C9BD141EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35A1883F-51C9-4274-80B0-B97C9BD141EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35A1883F-51C9-4274-80B0-B97C9BD141EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7866F63-42B3-41E1-B33E-361580372DA8}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Lime\Lime.projitems*{2e2f7017-989e-428c-896d-fd95ddf39c40}*SharedItemsImports = 13
+		Audio\Audio.projitems*{35a1883f-51c9-4274-80b0-b97c9bd141ea}*SharedItemsImports = 5
+		Graphics\Graphics.projitems*{35a1883f-51c9-4274-80b0-b97c9bd141ea}*SharedItemsImports = 5
+		Lime\Lime.projitems*{35a1883f-51c9-4274-80b0-b97c9bd141ea}*SharedItemsImports = 5
+		Physics\Physics.projitems*{35a1883f-51c9-4274-80b0-b97c9bd141ea}*SharedItemsImports = 5
+		Util\Util.projitems*{35a1883f-51c9-4274-80b0-b97c9bd141ea}*SharedItemsImports = 5
+		Window\Window.projitems*{35a1883f-51c9-4274-80b0-b97c9bd141ea}*SharedItemsImports = 5
+		Graphics\Graphics.projitems*{960ca962-b9fb-4e50-8a9f-59437c296de5}*SharedItemsImports = 13
+		Util\Util.projitems*{a97cc440-50b3-40be-9ccf-774aee5068a4}*SharedItemsImports = 13
+		Window\Window.projitems*{bc11faf0-8a9d-461e-951b-fe5dc5d281e9}*SharedItemsImports = 13
+		Audio\Audio.projitems*{efeeb77d-93ea-401d-9075-61fc1cf0ee34}*SharedItemsImports = 13
+		Physics\Physics.projitems*{feecb956-513f-4523-ab17-787222a3bcf8}*SharedItemsImports = 13
+	EndGlobalSection
+EndGlobal

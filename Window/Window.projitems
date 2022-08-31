@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>bc11faf0-8a9d-461e-951b-fe5dc5d281e9</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Window</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ContextSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Event.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Joystick.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoadingFailedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mouse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StreamAdaptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vector2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VideoMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Window.cs" />
+  </ItemGroup>
+</Project>

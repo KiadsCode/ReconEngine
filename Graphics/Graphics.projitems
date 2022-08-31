@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>960ca962-b9fb-4e50-8a9f-59437c296de5</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Graphics</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BlendMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CircleShape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Context.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConvexShape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Drawable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EngineWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Font.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Glyph.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PrimitiveType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RectangleShape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RenderStates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RenderTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RenderTexture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Text.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Texture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Transform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Transformable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vertex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VertexArray.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View.cs" />
+  </ItemGroup>
+</Project>

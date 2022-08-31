@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>efeeb77d-93ea-401d-9075-61fc1cf0ee34</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Audio</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Listener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Music.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sound.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SoundBuffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SoundBufferRecorder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SoundRecorder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SoundStream.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vector3.cs" />
+  </ItemGroup>
+</Project>

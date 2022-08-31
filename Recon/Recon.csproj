@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Recon</RootNamespace>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="libsndfile-1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="openal32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="recon-audio-con.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="recon-graphics-con.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="recon-window-con.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Import Project="..\Graphics\Graphics.projitems" Label="Shared" />
+
+  <Import Project="..\Lime\Lime.projitems" Label="Shared" />
+
+  <Import Project="..\Window\Window.projitems" Label="Shared" />
+
+  <Import Project="..\Physics\Physics.projitems" Label="Shared" />
+
+  <Import Project="..\Audio\Audio.projitems" Label="Shared" />
+
+  <Import Project="..\Util\Util.projitems" Label="Shared" />
+
+</Project>
