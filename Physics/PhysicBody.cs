@@ -46,14 +46,5 @@ namespace Recon.Physics {
         public void Impulse(Vector2 power) {
             this.impulsePower += power * 100f;
         }
-
-        /// <summary>
-        /// Making impulse for object rotation
-        /// </summary>
-        /// <param name="power">power of impulse</param>
-        public void ImpulseR(Vector2 power)
-        {
-            this.impulsePower += power * 100f;
-        }
     }
 }
