@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ys5AFeP75X3kG1cC6b42WhnNPKXYMtvl5Vxurvpr4fxSHB357h+A9MSy0Q58bhfKd2lu9HdZkhcN3rfw8V46SQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Acer\\source\\repos\\Recon\\Recon\\Recon.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Acer\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.26\\microsoft.windows.sdk.net.ref.10.0.22621.26.nupkg.sha512"
+  ],
+  "logs": []
+}

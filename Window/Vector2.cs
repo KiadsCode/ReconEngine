@@ -1,5 +1,6 @@
 using Recon.Math;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace Recon
@@ -28,6 +29,12 @@ namespace Recon
                 Y = y;
             }
 
+            public override bool Equals([NotNullWhen(true)] object? obj)
+            {
+                var v2 = (Vector2)obj;
+                return X == v2.X && Y == v2.Y;
+            }
+
             public static Vector2 Zero
             {
                 get { return new Vector2(0, 0); }
@@ -50,6 +57,18 @@ namespace Recon
             {
                 return new Vector2(-v.X, -v.Y);
             }
+
+            public static Vector2 operator -(Vector2 v1,float v2)
+            {
+                return new Vector2(v1.X - v2, v1.Y - v2);
+            }
+            public static Vector2 operator +(Vector2 v1, float v2)
+            {
+                return new Vector2(v1.X + v2, v1.Y + v2);
+            }
+
+            public static bool operator ==(Vector2 v1, Vector2 v2) => v1.X == v2.X && v1.Y == v2.Y;
+            public static bool operator !=(Vector2 v1, Vector2 v2) => v1.X != v2.X && v1.Y != v2.Y;
 
             public static Vector2 MoveTo(Vector2 current, Vector2 target, float maxDistanceDelta)
             {
@@ -176,6 +195,10 @@ namespace Recon
                 X = x;
                 Y = y;
             }
+
+
+            public static bool operator ==(Vector2I v1, Vector2I v2) => v1.X == v2.X && v1.Y == v2.Y;
+            public static bool operator !=(Vector2I v1, Vector2I v2) => v1.X != v2.X && v1.Y != v2.Y;
 
             public static Vector2I Lerp(Vector2I a, Vector2I b, float t)
             {
@@ -314,6 +337,8 @@ namespace Recon
             {
                 return new Vector2UI(v1.X - v2.X, v1.Y - v2.Y);
             }
+            public static bool operator ==(Vector2UI v1, Vector2UI v2) => v1.X == v2.X && v1.Y == v2.Y;
+            public static bool operator !=(Vector2UI v1, Vector2UI v2) => v1.X != v2.X && v1.Y != v2.Y;
 
             public static Vector2UI Lerp(Vector2UI a, Vector2UI b, float t)
             {

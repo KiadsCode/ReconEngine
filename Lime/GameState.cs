@@ -9,6 +9,7 @@ namespace Recon.Lime
 {
     public class GameState
     {
+        public Camera camera = new Camera();
         private double xtimer = 0;
         public double XTimer
         {
@@ -38,12 +39,13 @@ namespace Recon.Lime
             }
         }
         public Color backGroundColor = Color.Black;
-        internal void GameLoop()
+        internal void MessageLoop()
         {
             while (RcG.engine.IsOpen())
             {
                 RcG.engine.DispatchEvents();
                 RcG.engine.Clear(backGroundColor);
+                this.camera.UpdateCamera();
                 Update();
                 Render(RcG.engine);
                 RcG.engine.Display();
@@ -56,6 +58,7 @@ namespace Recon.Lime
         public virtual void Init()
         {
             ContentLoad();
+            camera.autoSizeDetection = true;
 
             add(@object);
 
@@ -66,7 +69,7 @@ namespace Recon.Lime
         }
         public virtual void ContentLoad()
         {
-            GameLoop();
+            MessageLoop();
         }
         public void add(GameObject obj)
         {
@@ -94,10 +97,25 @@ namespace Recon.Lime
         {
             xtimer++;
             @object.SetPosition(new Vector2());
+            this.camera.UpdateCamera();
+            RcG.engine.currentState = this;
+            RcG.engine.camera = this.camera;
             foreach (GameObject obj in objs)
             {
                 obj.Update();
             }
         }
+
+        public GameState()
+        {
+            camera = new Camera();
+            Init();
+        }
+
+        public void SetCamera(Camera camera)
+        {
+            this.camera = camera;
+        }
+
     }
 }

@@ -6,17 +6,18 @@ using System.Security;
 using Recon.Window;
 using Recon.Lime;
 
-namespace Recon {
-    namespace Graphics {
+namespace Recon
+{
+    namespace Graphics
+    {
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Main Engine window
         /// allow work with 2D Graphics
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public class EngineWindow : Recon.Window.Window, RenderTarget {
-            List<Drawable> objs = new List<Drawable>();
-
+        public class EngineWindow : Recon.Window.Window, RenderTarget
+        {
             public string Title { get; set; }
             ////////////////////////////////////////////////////////////
             /// <summary>
@@ -26,8 +27,10 @@ namespace Recon {
             /// <param name="title">Title of the window</param>
             ////////////////////////////////////////////////////////////
             public EngineWindow(VideoMode mode, string title) :
-                this(mode, title, Styles.Default, new ContextSettings(0, 0)) {
+                this(mode, title, Styles.Default, new ContextSettings(0, 0))
+            {
                 RcG.engine = this;
+                camera = new Camera();
                 Closed += new EventHandler(CloseCallBack);
                 Title = title;
             }
@@ -41,8 +44,10 @@ namespace Recon {
             /// <param name="style">Window style (Resize | Close by default)</param>
             ////////////////////////////////////////////////////////////
             public EngineWindow(VideoMode mode, string title, Styles style) :
-                this(mode, title, style, new ContextSettings(0, 0)) {
+                this(mode, title, style, new ContextSettings(0, 0))
+            {
                 RcG.engine = this;
+                camera = new Camera();
                 Closed += new EventHandler(CloseCallBack);
                 Title = title;
             }
@@ -57,17 +62,21 @@ namespace Recon {
             /// <param name="settings">Creation parameters</param>
             ////////////////////////////////////////////////////////////
             public EngineWindow(VideoMode mode, string title, Styles style, ContextSettings settings) :
-                base(IntPtr.Zero) {
+                base(IntPtr.Zero)
+            {
                 // Copy the string to a null-terminated UTF-32 byte array
                 byte[] titleAsUtf32 = System.Text.Encoding.UTF32.GetBytes(title + '\0');
 
-                unsafe {
-                    fixed (byte* titlePtr = titleAsUtf32) {
+                unsafe
+                {
+                    fixed (byte* titlePtr = titleAsUtf32)
+                    {
                         SetThis(sfRenderWindow_createUnicode(mode, (IntPtr)titlePtr, style, ref settings));
                     }
                 }
                 Initialize();
                 RcG.engine = this;
+                camera = new Camera();
                 Closed += new EventHandler(CloseCallBack);
                 Title = title;
             }
@@ -79,8 +88,10 @@ namespace Recon {
             /// <param name="handle">Platform-specific handle of the control</param>
             ////////////////////////////////////////////////////////////
             public EngineWindow(IntPtr handle) :
-                this(handle, new ContextSettings(0, 0)) {
+                this(handle, new ContextSettings(0, 0))
+            {
                 RcG.engine = this;
+                camera = new Camera();
                 Closed += new EventHandler(CloseCallBack);
             }
 
@@ -92,14 +103,18 @@ namespace Recon {
             /// <param name="settings">Creation parameters</param>
             ////////////////////////////////////////////////////////////
             public EngineWindow(IntPtr handle, ContextSettings settings) :
-                base(sfRenderWindow_createFromHandle(handle, ref settings), 0) {
+                base(sfRenderWindow_createFromHandle(handle, ref settings), 0)
+            {
                 Initialize();
                 RcG.engine = this;
                 Closed += new EventHandler(CloseCallBack);
             }
 
-            void CloseCallBack(object sender, EventArgs e) {
+            void CloseCallBack(object sender, EventArgs e)
+            {
                 EngineWindow engine = (EngineWindow)sender;
+                if (this.currentState != null)
+                    this.currentState.UnloadContent();
                 engine.Close();
                 Environment.Exit(0);
             }
@@ -112,11 +127,13 @@ namespace Recon {
             /// </summary>
             /// <returns>True if the window is opened</returns>
             ////////////////////////////////////////////////////////////
-            public override bool IsOpen() {
+            public override bool IsOpen()
+            {
                 return sfRenderWindow_isOpen(CPointer);
             }
 
-            public void switchState(GameState state) {
+            public void switchState(GameState state)
+            {
                 currentState = state;
                 currentState.Init();
             }
@@ -128,7 +145,8 @@ namespace Recon {
             /// Create to recreate the window
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public override void Close() {
+            public override void Close()
+            {
                 sfRenderWindow_close(CPointer);
             }
 
@@ -137,7 +155,8 @@ namespace Recon {
             /// Display the window on screen
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public override void Display() {
+            public override void Display()
+            {
                 sfRenderWindow_display(CPointer);
             }
 
@@ -146,7 +165,8 @@ namespace Recon {
             /// Creation settings of the window
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public override ContextSettings Settings {
+            public override ContextSettings Settings
+            {
                 get { return sfRenderWindow_getSettings(CPointer); }
             }
 
@@ -155,7 +175,8 @@ namespace Recon {
             /// Position of the window
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public override Vector2I Position {
+            public override Vector2I Position
+            {
                 get { return sfRenderWindow_getPosition(CPointer); }
                 set { sfRenderWindow_setPosition(CPointer, value); }
             }
@@ -165,7 +186,8 @@ namespace Recon {
             /// Size of the rendering region of the window
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public override Vector2UI Size {
+            public override Vector2UI Size
+            {
                 get { return sfRenderWindow_getSize(CPointer); }
                 set { sfRenderWindow_setSize(CPointer, value); }
             }
@@ -176,12 +198,15 @@ namespace Recon {
             /// </summary>
             /// <param name="title">New title</param>
             ////////////////////////////////////////////////////////////
-            public override void SetTitle(string title) {
+            public override void SetTitle(string title)
+            {
                 // Copy the title to a null-terminated UTF-32 byte array
                 byte[] titleAsUtf32 = System.Text.Encoding.UTF32.GetBytes(title + '\0');
 
-                unsafe {
-                    fixed (byte* titlePtr = titleAsUtf32) {
+                unsafe
+                {
+                    fixed (byte* titlePtr = titleAsUtf32)
+                    {
                         sfRenderWindow_setUnicodeTitle(CPointer, (IntPtr)titlePtr);
                         Title = title;
                     }
@@ -196,9 +221,12 @@ namespace Recon {
             /// <param name="height">Icon's height, in pixels</param>
             /// <param name="pixels">Array of pixels, format must be RGBA 32 bits</param>
             ////////////////////////////////////////////////////////////
-            public override void SetIcon(uint width, uint height, byte[] pixels) {
-                unsafe {
-                    fixed (byte* PixelsPtr = pixels) {
+            public override void SetIcon(uint width, uint height, byte[] pixels)
+            {
+                unsafe
+                {
+                    fixed (byte* PixelsPtr = pixels)
+                    {
                         sfRenderWindow_setIcon(CPointer, width, height, PixelsPtr);
                     }
                 }
@@ -210,7 +238,8 @@ namespace Recon {
             /// </summary>
             /// <param name="visible">True to show the window, false to hide it</param>
             ////////////////////////////////////////////////////////////
-            public override void SetVisible(bool visible) {
+            public override void SetVisible(bool visible)
+            {
                 sfRenderWindow_setVisible(CPointer, visible);
             }
 
@@ -220,7 +249,8 @@ namespace Recon {
             /// </summary>
             /// <param name="visible">True to show, false to hide</param>
             ////////////////////////////////////////////////////////////
-            public override void SetMouseCursorVisible(bool visible) {
+            public override void SetMouseCursorVisible(bool visible)
+            {
                 sfRenderWindow_setMouseCursorVisible(CPointer, visible);
             }
 
@@ -230,7 +260,8 @@ namespace Recon {
             /// </summary>
             /// <param name="enable">True to enable v-sync, false to deactivate</param>
             ////////////////////////////////////////////////////////////
-            public override void SetVerticalSyncEnabled(bool enable) {
+            public override void SetVerticalSyncEnabled(bool enable)
+            {
                 sfRenderWindow_setVerticalSyncEnabled(CPointer, enable);
             }
 
@@ -241,7 +272,8 @@ namespace Recon {
             /// </summary>
             /// <param name="enable">True to enable, false to disable</param>
             ////////////////////////////////////////////////////////////
-            public override void SetKeyRepeatEnabled(bool enable) {
+            public override void SetKeyRepeatEnabled(bool enable)
+            {
                 sfRenderWindow_setKeyRepeatEnabled(CPointer, enable);
             }
 
@@ -253,9 +285,12 @@ namespace Recon {
             /// <param name="active">True to activate, false to deactivate (true by default)</param>
             /// <returns>True if operation was successful, false otherwise</returns>
             ////////////////////////////////////////////////////////////
-            public override bool SetActive(bool active) {
+            public override bool SetActive(bool active)
+            {
                 return sfRenderWindow_setActive(CPointer, active);
             }
+
+            public Camera camera;
 
             ////////////////////////////////////////////////////////////
             /// <summary>
@@ -263,7 +298,8 @@ namespace Recon {
             /// </summary>
             /// <param name="limit">Framerate limit, in frames per seconds (use 0 to disable limit)</param>
             ////////////////////////////////////////////////////////////
-            public override void SetFramerateLimit(uint limit) {
+            public override void SetFramerateLimit(uint limit)
+            {
                 sfRenderWindow_setFramerateLimit(CPointer, limit);
                 framerateLimit = ((int)limit);
             }
@@ -289,7 +325,8 @@ namespace Recon {
             /// </summary>
             /// <param name="threshold">New threshold, in range [0, 100]</param>
             ////////////////////////////////////////////////////////////
-            public override void SetJoystickThreshold(float threshold) {
+            public override void SetJoystickThreshold(float threshold)
+            {
                 sfRenderWindow_setJoystickThreshold(CPointer, threshold);
             }
 
@@ -298,7 +335,8 @@ namespace Recon {
             /// OS-specific handle of the window
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public override IntPtr SystemHandle {
+            public override IntPtr SystemHandle
+            {
                 get { return sfRenderWindow_getSystemHandle(CPointer); }
             }
 
@@ -307,7 +345,8 @@ namespace Recon {
             /// Default view of the window
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public View DefaultView {
+            public View DefaultView
+            {
                 get { return myDefaultView; }
             }
 
@@ -317,7 +356,8 @@ namespace Recon {
             /// </summary>
             /// <returns>The current view</returns>
             ////////////////////////////////////////////////////////////
-            public View GetView() {
+            public View GetView()
+            {
                 return new View(sfRenderWindow_getView(CPointer));
             }
 
@@ -327,7 +367,8 @@ namespace Recon {
             /// </summary>
             /// <param name="view">New view</param>
             ////////////////////////////////////////////////////////////
-            public void SetView(View view) {
+            public void SetView(View view)
+            {
                 sfRenderWindow_setView(CPointer, view.CPointer);
             }
 
@@ -338,7 +379,8 @@ namespace Recon {
             /// <param name="view">Target view</param>
             /// <returns>Viewport rectangle, expressed in pixels in the current target</returns>
             ////////////////////////////////////////////////////////////
-            public IntRect GetViewport(View view) {
+            public IntRect GetViewport(View view)
+            {
                 return sfRenderWindow_getViewport(CPointer, view.CPointer);
             }
 
@@ -355,7 +397,8 @@ namespace Recon {
             /// <param name="point">Pixel to convert</param>
             /// <returns>The converted point, in "world" coordinates</returns>
             ////////////////////////////////////////////////////////////
-            public Vector2 MapPixelToCoords(Vector2I point) {
+            public Vector2 MapPixelToCoords(Vector2I point)
+            {
                 return MapPixelToCoords(point, GetView());
             }
 
@@ -385,7 +428,8 @@ namespace Recon {
             /// <param name="view">The view to use for converting the point</param>
             /// <returns>The converted point, in "world" coordinates</returns>
             ////////////////////////////////////////////////////////////
-            public Vector2 MapPixelToCoords(Vector2I point, View view) {
+            public Vector2 MapPixelToCoords(Vector2I point, View view)
+            {
                 return sfRenderWindow_mapPixelToCoords(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
             }
 
@@ -402,7 +446,8 @@ namespace Recon {
             /// <param name="point">Point to convert</param>
             /// <returns>The converted point, in target coordinates (pixels)</returns>
             ////////////////////////////////////////////////////////////
-            public Vector2I MapCoordsToPixel(Vector2 point) {
+            public Vector2I MapCoordsToPixel(Vector2 point)
+            {
                 return MapCoordsToPixel(point, GetView());
             }
 
@@ -428,7 +473,8 @@ namespace Recon {
             /// <param name="view">The view to use for converting the point</param>
             /// <returns>The converted point, in target coordinates (pixels)</returns>
             ////////////////////////////////////////////////////////////
-            public Vector2I MapCoordsToPixel(Vector2 point, View view) {
+            public Vector2I MapCoordsToPixel(Vector2 point, View view)
+            {
                 return sfRenderWindow_mapCoordsToPixel(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
             }
 
@@ -437,7 +483,8 @@ namespace Recon {
             /// Clear the entire window with black color
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public void Clear() {
+            public void Clear()
+            {
                 sfRenderWindow_clear(CPointer, Color.Black);
             }
 
@@ -447,7 +494,8 @@ namespace Recon {
             /// </summary>
             /// <param name="color">Color to use to clear the window</param>
             ////////////////////////////////////////////////////////////
-            public void Clear(Color color) {
+            public void Clear(Color color)
+            {
                 sfRenderWindow_clear(CPointer, color);
             }
 
@@ -457,7 +505,8 @@ namespace Recon {
             /// </summary>
             /// <param name="drawable">Object to draw</param>
             ////////////////////////////////////////////////////////////
-            public void Draw(Drawable drawable) {
+            public void Draw(Drawable drawable)
+            {
                 Draw(drawable, RenderStates.Default);
             }
 
@@ -468,7 +517,8 @@ namespace Recon {
             /// <param name="drawable">Object to draw</param>
             /// <param name="states">Render states to use for drawing</param>
             ////////////////////////////////////////////////////////////
-            public void Draw(Drawable drawable, RenderStates states) {
+            public void Draw(Drawable drawable, RenderStates states)
+            {
                 drawable.Render(this, states);
             }
 
@@ -479,7 +529,8 @@ namespace Recon {
             /// <param name="vertices">Pointer to the vertices</param>
             /// <param name="type">Type of primitives to draw</param>
             ////////////////////////////////////////////////////////////
-            public void Draw(Vertex[] vertices, PrimitiveType type) {
+            public void Draw(Vertex[] vertices, PrimitiveType type)
+            {
                 Draw(vertices, type, RenderStates.Default);
             }
 
@@ -491,7 +542,8 @@ namespace Recon {
             /// <param name="type">Type of primitives to draw</param>
             /// <param name="states">Render states to use for drawing</param>
             ////////////////////////////////////////////////////////////
-            public void Draw(Vertex[] vertices, PrimitiveType type, RenderStates states) {
+            public void Draw(Vertex[] vertices, PrimitiveType type, RenderStates states)
+            {
                 Draw(vertices, 0, (uint)vertices.Length, type, states);
             }
 
@@ -504,7 +556,8 @@ namespace Recon {
             /// <param name="count">Number of vertices to draw</param>
             /// <param name="type">Type of primitives to draw</param>
             ////////////////////////////////////////////////////////////
-            public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type) {
+            public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type)
+            {
                 Draw(vertices, start, count, type, RenderStates.Default);
             }
 
@@ -518,11 +571,14 @@ namespace Recon {
             /// <param name="type">Type of primitives to draw</param>
             /// <param name="states">Render states to use for drawing</param>
             ////////////////////////////////////////////////////////////
-            public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type, RenderStates states) {
+            public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type, RenderStates states)
+            {
                 RenderStates.MarshalData marshaledStates = states.Marshal();
 
-                unsafe {
-                    fixed (Vertex* vertexPtr = vertices) {
+                unsafe
+                {
+                    fixed (Vertex* vertexPtr = vertices)
+                    {
                         sfRenderWindow_drawPrimitives(CPointer, vertexPtr + start, count, type, ref marshaledStates);
                     }
                 }
@@ -558,7 +614,8 @@ namespace Recon {
             /// function if you do so.
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public void PushGLStates() {
+            public void PushGLStates()
+            {
                 sfRenderWindow_pushGLStates(CPointer);
             }
 
@@ -570,7 +627,8 @@ namespace Recon {
             /// description of these functions.
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public void PopGLStates() {
+            public void PopGLStates()
+            {
                 sfRenderWindow_popGLStates(CPointer);
             }
 
@@ -595,7 +653,8 @@ namespace Recon {
             /// // OpenGL code here...
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public void ResetGLStates() {
+            public void ResetGLStates()
+            {
                 sfRenderWindow_resetGLStates(CPointer);
             }
 
@@ -604,7 +663,8 @@ namespace Recon {
             /// Capture the current contents of the window into an image
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public Image Capture() {
+            public Image Capture()
+            {
                 return new Image(sfRenderWindow_capture(CPointer));
             }
 
@@ -614,7 +674,8 @@ namespace Recon {
             /// </summary>
             /// <returns>String description of the object</returns>
             ////////////////////////////////////////////////////////////
-            public override string ToString() {
+            public override string ToString()
+            {
                 return "[EngineWindow]" +
                        " Size(" + Size + ")" +
                        " Position(" + Position + ")" +
@@ -630,7 +691,8 @@ namespace Recon {
             /// <param name="eventToFill">Variable to fill with the raw pointer to the event structure</param>
             /// <returns>True if there was an event, false otherwise</returns>
             ////////////////////////////////////////////////////////////
-            protected override bool PollEvent(out Event eventToFill) {
+            protected override bool PollEvent(out Event eventToFill)
+            {
                 return sfRenderWindow_pollEvent(CPointer, out eventToFill);
             }
 
@@ -641,7 +703,8 @@ namespace Recon {
             /// <param name="eventToFill">Variable to fill with the raw pointer to the event structure</param>
             /// <returns>False if any error occured</returns>
             ////////////////////////////////////////////////////////////
-            protected override bool WaitEvent(out Event eventToFill) {
+            protected override bool WaitEvent(out Event eventToFill)
+            {
                 return sfRenderWindow_waitEvent(CPointer, out eventToFill);
             }
 
@@ -653,7 +716,8 @@ namespace Recon {
             /// </summary>
             /// <returns>Relative mouse position</returns>
             ////////////////////////////////////////////////////////////
-            public override Vector2I InternalGetMousePosition() {
+            public override Vector2I InternalGetMousePosition()
+            {
                 return sfMouse_getPositionRenderWindow(CPointer);
             }
 
@@ -665,7 +729,8 @@ namespace Recon {
             /// </summary>
             /// <param name="position">Relative mouse position</param>
             ////////////////////////////////////////////////////////////
-            public override void InternalSetMousePosition(Vector2I position) {
+            public override void InternalSetMousePosition(Vector2I position)
+            {
                 sfMouse_setPositionRenderWindow(position, CPointer);
             }
 
@@ -675,7 +740,8 @@ namespace Recon {
             /// </summary>
             /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
             ////////////////////////////////////////////////////////////
-            protected override void Destroy(bool disposing) {
+            protected override void Destroy(bool disposing)
+            {
                 sfRenderWindow_destroy(CPointer);
 
                 if (disposing)
@@ -687,13 +753,14 @@ namespace Recon {
             /// Do common initializations
             /// </summary>
             ////////////////////////////////////////////////////////////
-            private void Initialize() {
+            private void Initialize()
+            {
                 myDefaultView = new View(sfRenderWindow_getDefaultView(CPointer));
                 GC.SuppressFinalize(myDefaultView);
             }
 
             private View myDefaultView = null;
-            private GameState currentState;
+            internal GameState currentState;
 
             #region Imports
             [DllImport("recon-graphics-con.dll", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]

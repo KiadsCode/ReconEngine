@@ -11,10 +11,10 @@ namespace Recon.Physics {
     /// Physic Body of objects
     /// </summary>
     public class PhysicBody {
-        public Vector2 transform;
-        public Vector2 impulsePower = new Vector2(0, 0);
-        public Vector2 velocity = new Vector2(0, 0);
-        public Vector2 gravity = new Vector2(0, 0);
+        public Vector2 transform = Vector2.Zero;
+        public Vector2 impulsePower = Vector2.Zero;
+        public Vector2 velocity = Vector2.Zero;
+        public Vector2 gravity = Vector2.Zero;
 
         public PhysicBody(Transformable transform) {
             this.transform = transform.Position;

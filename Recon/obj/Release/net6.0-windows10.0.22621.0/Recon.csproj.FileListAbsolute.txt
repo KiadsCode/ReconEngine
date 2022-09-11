@@ -1,0 +1,17 @@
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\libsndfile-1.dll
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\openal32.dll
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\recon-audio-con.dll
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\recon-graphics-con.dll
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\recon-window-con.dll
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\Recon.deps.json
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\Recon.dll
+C:\Users\Acer\source\repos\Recon\Recon\bin\Release\net6.0-windows10.0.22621.0\Recon.pdb
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\Recon.csproj.AssemblyReference.cache
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\Recon.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\Recon.AssemblyInfoInputs.cache
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\Recon.AssemblyInfo.cs
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\Recon.csproj.CoreCompileInputs.cache
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\Recon.dll
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\refint\Recon.dll
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\Recon.pdb
+C:\Users\Acer\source\repos\Recon\Recon\obj\Release\net6.0-windows10.0.22621.0\ref\Recon.dll

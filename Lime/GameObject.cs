@@ -72,6 +72,17 @@ namespace Recon.Lime {
                 engine.Draw(sprite);
         }
 
+        public void Translate(Vector2 position)
+        {
+            physicBody.transform += position;
+        }
+
+        public void Translate(float x, float y)
+        {
+            Vector2 position = new Vector2(x, y);
+            physicBody.transform += position;
+        }
+
         public Sprite CSprite {
             get {
                 return sprite;

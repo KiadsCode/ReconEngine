@@ -1,7 +1,12 @@
 ﻿namespace Recon.Math
 {
-    internal static class Mathf
+    public static class Mathf
     {
+        public static float lerp(float a, float b, float f)
+        {
+            return a + f * (b - a);
+        }
+
 
         public static float ClampA(float value)
         {

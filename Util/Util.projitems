@@ -9,6 +9,7 @@
     <Import_RootNamespace>Recon.Util</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Convert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataReader.cs" />
   </ItemGroup>
 </Project>

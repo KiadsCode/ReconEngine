@@ -156,6 +156,19 @@ namespace Recon.Generic
             Array.Copy(this.m_items, array, this._size);
             return array;
         }
+        public List<T> ToList()
+        {
+            List<T> values = new List<T>();
+            if(this._size == 0)
+            {
+                return values;
+            }
+            foreach(var val in this.m_items)
+            {
+                values.Add(val);
+            }
+            return values;
+        }
 
         public void RemoveAt(int index)
         {
