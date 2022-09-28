@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Lime\IObjectBase.cs" Link="IObjectBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="libsndfile-1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
