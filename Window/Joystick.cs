@@ -44,7 +44,7 @@ namespace Recon
                 /// <summary>The U axis</summary>
                 U,
 
-                /// <summary>The V axis</summary>
+                /// <summary>The mapFormat axis</summary>
                 V,
 
                 /// <summary>The X axis of the point-of-view hat</summary>

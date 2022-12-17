@@ -13,7 +13,7 @@ namespace Recon
         /// This class defines a graphical 2D text, that can be drawn on screen
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public class Text : Transformable, Drawable
+        public class Text : Transformable, IObjectBase
         {
             ////////////////////////////////////////////////////////////
             /// <summary>
@@ -67,7 +67,7 @@ namespace Recon
             public bool Intersection(Shape obj) {
                 return GetGlobalBounds().Intersects(obj.GetGlobalBounds());
             }
-            public bool Intersection(Sprite obj) {
+            public bool Intersection(Texture2D obj) {
                 return GetGlobalBounds().Intersects(obj.GetGlobalBounds());
             }
 
@@ -191,6 +191,10 @@ namespace Recon
                 get {return sfText_getStyle(CPointer);}
                 set {sfText_setStyle(CPointer, value);}
             }
+
+            public Texture2D CSprite { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public Vector2UI ObjectSize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public Texture2D texture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
             ////////////////////////////////////////////////////////////
             /// <summary>
@@ -352,6 +356,86 @@ namespace Recon
 
             [DllImport("recon-graphics-con.dll", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
             static extern FloatRect sfText_getLocalBounds(IntPtr CPointer);
+
+            public Image GetImage()
+            {
+                return this.Font.GetTexture(CharacterSize).CopyToImage();
+            }
+
+            public Vector2 GetPosition()
+            {
+                return Position;
+            }
+
+            public Texture2D GetSprite()
+            {
+                return new Texture2D(Font.GetTexture(CharacterSize));
+            }
+
+            public Texture GetTexture()
+            {
+                return Font.GetTexture(this.CharacterSize);
+            }
+
+            public void Initialize()
+            {
+            }
+
+            public bool isCollide(GameObject Object)
+            {
+                return false;
+            }
+
+            public bool isOverlaping(GameObject OBJECT)
+            {
+                return false;
+            }
+
+            public void Kill()
+            {
+            }
+
+            public void LoadSprite(string imgFile)
+            {
+            }
+
+            public void Revive()
+            {
+            }
+
+            public void SetPosition(Vector2 position)
+            {
+                Position = position;
+            }
+
+            public void SetScale(Vector2 scale)
+            {
+                Scale = scale;
+            }
+
+            public void Translate(float x, float y)
+            {
+                Position += new Vector2(x, y);
+            }
+
+            public void Translate(Vector2 position)
+            {
+                Position += position;
+            }
+
+            public void Unload()
+            {
+                Dispose();
+            }
+
+            public void Update()
+            {
+            }
+
+            Texture2D IObjectBase.GetSprite()
+            {
+                throw new NotImplementedException();
+            }
 
             #endregion
         }

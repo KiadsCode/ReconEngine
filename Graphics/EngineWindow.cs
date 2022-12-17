@@ -135,7 +135,7 @@ namespace Recon
             public void switchState(GameState state)
             {
                 currentState = state;
-                currentState.Init();
+                currentState.Initialize();
             }
 
             ////////////////////////////////////////////////////////////

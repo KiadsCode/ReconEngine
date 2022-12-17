@@ -27,7 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)RenderTexture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shape.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Sprite.cs" />
+    <Compile Include="..\Graphics\Texture2D.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Text.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Texture.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Transform.cs" />

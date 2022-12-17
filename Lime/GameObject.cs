@@ -6,13 +6,12 @@ using Recon.Window;
 using Recon.Physics;
 
 namespace Recon.Lime {
-    public class GameObject {
+    public class GameObject : IDisposable, IObjectBase
+    {
         public PhysicBody physicBody;
         public bool Solid = true;
         private bool prevSolid = true;
-        private Sprite sprite = null;
-        private Image img = null;
-        private Texture texture = null;
+        private Texture2D sprite = null;
         public bool alive = true;
 
         #region GetFunctions
@@ -21,14 +20,8 @@ namespace Recon.Lime {
             return sprite.Position;
         }
 
-        public Sprite GetSprite() {
+        public Texture2D GetSprite() {
             return sprite;
-        }
-        public Texture GetTexture() {
-            return texture;
-        }
-        public Image GetImage() {
-            return img;
         }
 
         #endregion
@@ -47,12 +40,9 @@ namespace Recon.Lime {
         /// Loading new sprite with old settings
         /// </summary>
         /// <param name="imgFile">Image you want load to</param>
-        public void LoadSprite(string imgFile) {
-            Sprite backupSprite = sprite;
-            string actualPath = Settings.contentFolder + Settings.imagesFolder + imgFile;
-            img = new Image(actualPath);
-            texture = new Texture(actualPath);
-            sprite = new Sprite(texture);
+        public void LoadSprite(ContentManager Content, string imgFile) {
+            Texture2D backupSprite = sprite;
+            sprite = Content.Load<Texture2D>(imgFile);
 
 
 
@@ -61,6 +51,11 @@ namespace Recon.Lime {
             sprite.Position = backupSprite.Position;
             sprite.Origin = backupSprite.Origin;
             sprite.Rotation = backupSprite.Rotation;
+        }
+
+        public void ChangeTexture(Texture2D texture)
+        {
+            this.sprite = texture;
         }
 
         /// <summary>
@@ -83,12 +78,12 @@ namespace Recon.Lime {
             physicBody.transform += position;
         }
 
-        public Sprite CSprite {
+        public Texture2D CSprite {
             get {
                 return sprite;
             }
             set {
-                CSprite = value;
+                sprite = value;
             }
         }
 
@@ -106,22 +101,19 @@ namespace Recon.Lime {
             Solid = false;
             alive = false;
         }
-        public virtual void Initialize() { }
-        public virtual void Update() {
+        public void Initialize() { }
+        public void Update() {
             physicBody.UpdatePhysic();
             sprite.Position = physicBody.transform;
         }
 
         public GameObject() {
-            sprite = new Sprite();
+            sprite = new Texture2D();
             physicBody = new PhysicBody(sprite);
         }
-        public GameObject(String imgFile, Vector2 position)
+        public GameObject(GameState gameState, String imgFile, Vector2 position)
         {
-            string actualPath = Settings.contentFolder + Settings.imagesFolder + imgFile;
-            img = new Image(actualPath);
-            texture = new Texture(img);
-            sprite = new Sprite(texture);
+            sprite = gameState.Content.Load<Texture2D>(imgFile);
 
             //Check is position empty or null
             if (position.Equals(new Vector2()) || position.Equals(null))
@@ -136,8 +128,6 @@ namespace Recon.Lime {
         /// </summary>
         public void Unload() {
             sprite.Dispose();
-            img.Dispose();
-            texture.Dispose();
         }
 
         /// <summary>
@@ -172,6 +162,8 @@ namespace Recon.Lime {
             }
         }
 
+        Texture2D IObjectBase.texture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         /// <summary>
         /// Checking is object colliding or not
         /// </summary>
@@ -190,6 +182,27 @@ namespace Recon.Lime {
 
         private Vector2 getScreenXY() {
             return sprite.Position;
+        }
+
+        public void Dispose()
+        {
+            CSprite.Dispose();
+        }
+
+        public void Render(RenderTarget target, RenderStates states)
+        {
+            if (alive)
+                RcG.engine.Draw(sprite);
+        }
+
+        Texture2D IObjectBase.GetSprite()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadSprite(string imgFile)
+        {
+            throw new NotImplementedException();
         }
     }
 }

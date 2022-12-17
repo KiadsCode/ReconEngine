@@ -14,14 +14,14 @@ namespace Recon
         /// color, and draw on screen
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public class Sprite : Transformable, Drawable
+        public class Texture2D : Transformable, Drawable
         {
             ////////////////////////////////////////////////////////////
             /// <summary>
             /// Default constructor
             /// </summary>
             ////////////////////////////////////////////////////////////
-            public Sprite() :
+            public Texture2D() :
                 base(sfSprite_create())
             {
             }
@@ -32,7 +32,7 @@ namespace Recon
             /// </summary>
             /// <param name="texture">Source texture to assign to the sprite</param>
             ////////////////////////////////////////////////////////////
-            public Sprite(Texture texture) :
+            public Texture2D(Texture texture) :
                 base(sfSprite_create())
             {
                 Texture = texture;
@@ -45,7 +45,7 @@ namespace Recon
             /// <param name="texture">Source texture to assign to the sprite</param>
             /// <param name="rectangle">Sub-rectangle of the texture to assign to the sprite</param>
             ////////////////////////////////////////////////////////////
-            public Sprite(Texture texture, IntRect rectangle) :
+            public Texture2D(Texture texture, IntRect rectangle) :
                 base(sfSprite_create())
             {
                 Texture = texture;
@@ -61,7 +61,7 @@ namespace Recon
             public bool Intersection(Shape obj) {
                 return GetGlobalBounds().Intersects(obj.GetGlobalBounds());
             }
-            public bool Intersection(Sprite obj) {
+            public bool Intersection(Texture2D obj) {
                 return GetGlobalBounds().Intersects(obj.GetGlobalBounds());
             }
 
@@ -71,7 +71,7 @@ namespace Recon
             /// </summary>
             /// <param name="copy">Sprite to copy</param>
             ////////////////////////////////////////////////////////////
-            public Sprite(Sprite copy) :
+            public Texture2D(Texture2D copy) :
                 base(sfSprite_copy(copy.CPointer))
             {
                 Origin = copy.Origin;

@@ -10,8 +10,8 @@ namespace Recon.Util
         StreamReader reader;
         public DataReader(string file)
         {
-            if (File.Exists(Settings.contentFolder + Settings.dataFolder + file))
-                reader = new StreamReader(Settings.contentFolder + Settings.dataFolder + file);
+            if (File.Exists(file))
+                reader = new StreamReader(file);
             else
                 throw new Exception("Trying to access non existing file");
         }

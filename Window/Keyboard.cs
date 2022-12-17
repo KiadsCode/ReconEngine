@@ -35,7 +35,7 @@ namespace Recon
             S,            // The S key
             T,            // The T key
             U,            // The U key
-            V,            // The V key
+            V,            // The mapFormat key
             W,            // The W key
             X,            // The X key
             Y,            // The Y key

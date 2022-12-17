@@ -13,7 +13,7 @@ namespace Recon
         /// Base class for textured shapes with outline
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public abstract class Shape : Transformable, Drawable
+        public abstract class Shape : Transformable, IObjectBase
         {
             ////////////////////////////////////////////////////////////
             /// <summary>
@@ -73,6 +73,9 @@ namespace Recon
                 get { return sfShape_getOutlineThickness(CPointer); }
                 set { sfShape_setOutlineThickness(CPointer, value); }
             }
+
+            public Texture2D texture { get; set; }
+            public Vector2UI ObjectSize { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
             ////////////////////////////////////////////////////////////
             /// <summary>
@@ -177,7 +180,7 @@ namespace Recon
             public bool Intersection(Shape obj) {
                 return GetGlobalBounds().Intersects(obj.GetGlobalBounds());
             }
-            public bool Intersection(Sprite obj) {
+            public bool Intersection(Texture2D obj) {
                 return GetGlobalBounds().Intersects(obj.GetGlobalBounds());
             }
 
@@ -311,6 +314,81 @@ namespace Recon
 
             [DllImport("recon-graphics-con.dll", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
             static extern void sfRenderTexture_drawShape(IntPtr CPointer, IntPtr Shape, ref RenderStates.MarshalData states);
+
+            public Image GetImage()
+            {
+                return this.Texture.CopyToImage();
+            }
+
+            public Vector2 GetPosition()
+            {
+                return Position;
+            }
+
+            public Texture2D GetSprite()
+            {
+                return new Texture2D(Texture);
+            }
+
+            public Texture GetTexture()
+            {
+                return Texture;
+            }
+
+            public void Initialize()
+            {
+            }
+
+            public bool isCollide(GameObject Object)
+            {
+                return GetGlobalBounds().Intersects(Object.CSprite.GetGlobalBounds());
+            }
+
+            public bool isOverlaping(GameObject OBJECT)
+            {
+                return GetGlobalBounds().Intersects(OBJECT.CSprite.GetGlobalBounds());
+            }
+
+            public void Kill()
+            {
+            }
+
+            public void LoadSprite(string imgFile)
+            {
+            }
+
+            public void Revive()
+            {
+            }
+
+            public void SetPosition(Vector2 position)
+            {
+                Position = position;
+            }
+
+            public void SetScale(Vector2 scale)
+            {
+                Scale = scale;
+            }
+
+            public void Translate(float x, float y)
+            {
+                Position += new Vector2(x, y);
+            }
+
+            public void Translate(Vector2 position)
+            {
+                Position += position;
+            }
+
+            public void Unload()
+            {
+            }
+
+            void IObjectBase.Update()
+            {
+            }
+
 
             #endregion
         }
