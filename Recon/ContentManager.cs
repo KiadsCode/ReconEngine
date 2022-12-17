@@ -109,11 +109,11 @@ namespace Recon
             {
                 SoundBuffer buffer;
 
-                for (int i = 0; i < imageTypes.Length; i++)
+                for (int i = 0; i < soundTypes.Length; i++)
                 {
                     if (File.Exists(AssetPath + soundTypes[i]))
                     {
-                        AssetPath = AssetPath + imageTypes[i];
+                        AssetPath = AssetPath + soundTypes[i];
                         break;
                     }
                 }
