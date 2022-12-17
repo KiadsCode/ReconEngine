@@ -22,6 +22,10 @@ namespace Recon
             {
                 return rootDirectory;
             }
+            set
+            {
+                rootDirectory = value;
+            }
         }
         internal string rootDirectory;
 
@@ -30,6 +34,13 @@ namespace Recon
             rootDirectory = directory;
         }
 
+        /// <summary>
+        /// Loading asset from memory
+        /// </summary>
+        /// <typeparam name="T">Asset type</typeparam>
+        /// <param name="assetName">Name of asset to load</param>
+        /// <returns>Asset</returns>
+        /// <exception cref="Exception"></exception>
         public T Load<T>(string assetName)
         {
             string AssetPath = rootDirectory + "/" + assetName;
@@ -41,12 +52,15 @@ namespace Recon
                 Image image;
                 Texture texture;
 
-                for (int i = 0; i < imageTypes.Length; i++)
+                if (!File.Exists(AssetPath))
                 {
-                    if(File.Exists(AssetPath + imageTypes[i]))
+                    for (int i = 0; i < imageTypes.Length; i++)
                     {
-                        AssetPath = AssetPath + imageTypes[i];
-                        break;
+                        if (File.Exists(AssetPath + imageTypes[i]))
+                        {
+                            AssetPath = AssetPath + imageTypes[i];
+                            break;
+                        }
                     }
                 }
 
@@ -64,14 +78,19 @@ namespace Recon
             if (typeof(T) == typeof(Image))
             {
                 Image image;
-                for (int i = 0; i < imageTypes.Length; i++)
+
+                if (!File.Exists(AssetPath))
                 {
-                    if (File.Exists(AssetPath + imageTypes[i]))
+                    for (int i = 0; i < imageTypes.Length; i++)
                     {
-                        AssetPath = AssetPath + imageTypes[i];
-                        break;
+                        if (File.Exists(AssetPath + imageTypes[i]))
+                        {
+                            AssetPath = AssetPath + imageTypes[i];
+                            break;
+                        }
                     }
                 }
+
                 try
                 {
                     image = new Image(AssetPath);
@@ -86,14 +105,19 @@ namespace Recon
             {
                 Image image;
                 Texture texture;
-                for (int i = 0; i < imageTypes.Length; i++)
+
+                if (!File.Exists(AssetPath))
                 {
-                    if (File.Exists(AssetPath + imageTypes[i]))
+                    for (int i = 0; i < imageTypes.Length; i++)
                     {
-                        AssetPath = AssetPath + imageTypes[i];
-                        break;
+                        if (File.Exists(AssetPath + imageTypes[i]))
+                        {
+                            AssetPath = AssetPath + imageTypes[i];
+                            break;
+                        }
                     }
                 }
+
                 try
                 {
                     image = new Image(AssetPath);
@@ -109,12 +133,15 @@ namespace Recon
             {
                 SoundBuffer buffer;
 
-                for (int i = 0; i < soundTypes.Length; i++)
+                if (!File.Exists(AssetPath))
                 {
-                    if (File.Exists(AssetPath + soundTypes[i]))
+                    for (int i = 0; i < soundTypes.Length; i++)
                     {
-                        AssetPath = AssetPath + soundTypes[i];
-                        break;
+                        if (File.Exists(AssetPath + soundTypes[i]))
+                        {
+                            AssetPath = AssetPath + soundTypes[i];
+                            break;
+                        }
                     }
                 }
 
